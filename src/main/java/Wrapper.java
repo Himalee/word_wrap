@@ -1,34 +1,52 @@
 import java.util.ArrayList;
 
 public class Wrapper {
-    public static String wrap(String word, int columnNumber) {
+
+    private static ArrayList<String> assembler = new ArrayList<>();
+
+    public static String wrap(String word, int columnLength) {
+
+        clearAssembler();
+
+        assembleWithNoLineBreaks(word, columnLength);
+        assembleWithLineBreaks(word, columnLength);
+
+        return wordWithLineBreaks();
+    }
+
+    private static void clearAssembler() {
+        assembler.clear();
+    }
+
+    private static void assembleWithNoLineBreaks(String word, int columnLength) {
+        int wordLength = word.length();
+        if (wordLength <= columnLength) {
+            assembler.add(word);
+        }
+    }
+
+    private static void assembleWithLineBreaks(String word, int columnLength) {
         int wordLength = word.length();
         int beginIndex = 0;
-        int lengthToWrap = columnNumber;
-        int endIndex = beginIndex + lengthToWrap;
+        int endIndex = beginIndex + columnLength;
 
-        ArrayList<String> splitWords = new ArrayList<>();
+        while ( wordLength  > columnLength ) {
 
-        if (wordLength <= columnNumber) {
-            splitWords.add(word);
-        }
+            assembler.add(word.substring(beginIndex, endIndex));
 
-        while ( wordLength  > columnNumber ) {
+            wordLength -= columnLength;
 
-            splitWords.add(word.substring(beginIndex, endIndex));
-
-            wordLength -= lengthToWrap;
-            if ( wordLength <= columnNumber ) {
-                splitWords.add(word.substring(beginIndex += lengthToWrap));
+            if ( wordLength <= columnLength ) {
+                assembler.add(word.substring(beginIndex += columnLength));
             }
 
-            beginIndex += lengthToWrap;
-            endIndex += lengthToWrap;
+            beginIndex += columnLength;
+            endIndex += columnLength;
 
         }
+    }
 
-        String finalWord = String.join("\n", splitWords);
-
-        return finalWord;
+    private static String wordWithLineBreaks() {
+        return String.join("\n", assembler);
     }
 }

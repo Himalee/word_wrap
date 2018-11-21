@@ -23,7 +23,7 @@ public class WrapTest {
     }
 
     @Test
-    public void colLengthLessThanWordLength_expectWordWithEightBreaks() {
+    public void colLengthLessThanWordLength_expectSentenceWithEightBreaks() {
         Assert.assertEquals("chees\ne on \ntoast\n for \nthe m\nornin\ng it'\ns ama\nzing!", Wrapper.wrap("cheese on toast for the morning it's amazing!", 5));
     }
 
