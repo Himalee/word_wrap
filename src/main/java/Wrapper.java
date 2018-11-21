@@ -19,8 +19,7 @@ public class Wrapper {
     }
 
     private static void assembleWithNoLineBreaks(String word, int columnLength) {
-        int wordLength = word.length();
-        if (wordLength <= columnLength) {
+        if (word.length() <= columnLength) {
             assembler.add(word);
         }
     }
