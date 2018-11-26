@@ -1,35 +1,17 @@
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.ArrayList;
 
 public class Wrapper {
-
-    private static ArrayList<String> assembler = new ArrayList<>();
+public static final String NEWLINE = "\n";
 
     public static String wrap(String word, int columnLength) {
-
-        clearAssembler();
-
-        assembleWithNoLineBreaks(word, columnLength);
-        assembleWithLineBreaks(word, columnLength);
-
-        return wordWithLineBreaks();
-    }
-
-    private static void clearAssembler() {
-        assembler.clear();
-    }
-
-    private static void assembleWithNoLineBreaks(String word, int columnLength) {
-        if (word.length() <= columnLength) {
-            assembler.add(word);
-        }
-    }
-
-    private static void assembleWithLineBreaks(String word, int columnLength) {
+        ArrayList<String> assembler = new ArrayList<>();
         int wordLength = word.length();
         int beginIndex = 0;
         int endIndex = beginIndex + columnLength;
 
-        while ( wordLength  > columnLength ) {
+        while ( wordLength > columnLength ) {
 
             assembler.add(word.substring(beginIndex, endIndex));
 
@@ -43,9 +25,12 @@ public class Wrapper {
             endIndex += columnLength;
 
         }
+
+        if (word.length() <= columnLength) {
+            assembler.add(word);
+        }
+        return String.join(NEWLINE, assembler);
+
     }
 
-    private static String wordWithLineBreaks() {
-        return String.join("\n", assembler);
-    }
 }
