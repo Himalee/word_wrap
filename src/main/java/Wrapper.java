@@ -5,18 +5,18 @@ public class Wrapper {
     public static final int FIRSTELEMENT = 0;
 
     public static String wrap(String word, int columnLength) {
-        ArrayList<String> assembler = new ArrayList<>();
+        ArrayList<String> wordChunks = new ArrayList<>();
         String remainingWord = word;
 
         while (remainingWord.length() > columnLength) {
             String splitWord = remainingWord.substring(FIRSTELEMENT, columnLength);
-            assembler.add(splitWord);
+            wordChunks.add(splitWord);
             remainingWord = remainingWord.replace(splitWord, "");
 
         }
-        assembler.add(remainingWord);
+        wordChunks.add(remainingWord);
 
-      return  String.join(NEWLINE, assembler);
+      return  String.join(NEWLINE, wordChunks);
 
     }
 
