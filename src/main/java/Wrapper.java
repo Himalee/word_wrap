@@ -1,35 +1,22 @@
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import java.util.ArrayList;
 
 public class Wrapper {
-public static final String NEWLINE = "\n";
+    public static final String NEWLINE = "\n";
+    public static final int FIRSTELEMENT = 0;
 
     public static String wrap(String word, int columnLength) {
         ArrayList<String> assembler = new ArrayList<>();
-        int wordLength = word.length();
-        int beginIndex = 0;
-        int endIndex = beginIndex + columnLength;
+        String remainingWord = word;
 
-        while ( wordLength > columnLength ) {
-
-            assembler.add(word.substring(beginIndex, endIndex));
-
-            wordLength -= columnLength;
-
-            if ( wordLength <= columnLength ) {
-                assembler.add(word.substring(beginIndex += columnLength));
-            }
-
-            beginIndex += columnLength;
-            endIndex += columnLength;
+        while (remainingWord.length() > columnLength) {
+            String splitWord = remainingWord.substring(FIRSTELEMENT, columnLength);
+            assembler.add(splitWord);
+            remainingWord = remainingWord.replace(splitWord, "");
 
         }
+        assembler.add(remainingWord);
 
-        if (word.length() <= columnLength) {
-            assembler.add(word);
-        }
-        return String.join(NEWLINE, assembler);
+      return  String.join(NEWLINE, assembler);
 
     }
 
